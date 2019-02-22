@@ -124,13 +124,11 @@ tap "universal-ctags/universal-ctags"
 tap "heroku/brew"
 
 # Unix
-brew "universal-ctags", args: ["HEAD"]
 brew "git"
 brew "openssl"
 brew "rcm"
 brew "the_silver_searcher"
 brew "vim"
-brew "watchman"
 brew "zsh"
 
 # Heroku
