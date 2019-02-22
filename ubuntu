@@ -122,6 +122,7 @@ tap "thoughtbot/formulae"
 tap "homebrew/services"
 tap "universal-ctags/universal-ctags"
 tap "heroku/brew"
+tap "homebrew/cask"
 
 # Unix
 brew "git"
@@ -130,6 +131,7 @@ brew "rcm"
 brew "the_silver_searcher"
 brew "vim"
 brew "zsh"
+
 
 # Heroku
 brew "heroku/brew/heroku"
