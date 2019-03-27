@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+
+read -s -p "Enter Password for sudo: " sudoPW
+
+echo $sudoPW 
+
+abc(){
+    echo $1
+}
+
+abc 137
+
+echo $sudoPW
+echo $sudoPW
+echo $sudoPW | sudo apt update
+sudo apt update

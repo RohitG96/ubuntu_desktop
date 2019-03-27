@@ -1,0 +1,49 @@
+#!/usr/bin/env bash
+
+trap 'ret=$?; test $ret -ne 0 && printf "failed\n\n" >&2; exit $ret' EXIT
+set -e
+
+fancy_echo(){
+    printf "\n%b\n" "$1"
+}
+
+install_wget(){
+    sudo apt update && apt upgrade
+    sudo apt install wget
+}
+
+install_curl(){
+    sudo apt-get update
+    sudo apt-get install curl
+}
+
+install_zsh(){
+    sudo apt-get install zsh
+    sudo apt-get install git-core
+    wget https://github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh -O - | zsh
+    sudo chsh -s `which zsh`
+}
+
+add_to_zshrc(){
+    echo $1 >> ~/.zshrc
+}
+
+install_brew(){
+    sh -c "$(curl -fsSL https://raw.githubusercontent.com/Linuxbrew/install/master/install.sh)"
+    test -d ~/.linuxbrew && eval $(~/.linuxbrew/bin/brew shellenv)
+    test -d /home/linuxbrew/.linuxbrew && eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv)
+    test -r ~/.bash_profile && echo "eval \$($(brew --prefix)/bin/brew shellenv)" >>~/.bash_profile
+    add_to_zshrc "eval \$($(brew --prefix)/bin/brew shellenv)"
+}
+
+install_node(){
+    sudo apt-get update
+    sudo apt-get install nodejs
+    sudo apt-get install npm
+}
+
+# install_zsh
+# install_wget
+# install_curl
+# install_brew
+# install_node

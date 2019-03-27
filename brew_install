@@ -1,0 +1,51 @@
+#!/bin/sh
+
+fancy_echo() {
+  local fmt="$1"; shift
+
+  # shellcheck disable=SC2059
+  printf "\\n$fmt\\n" "$@"
+}
+
+
+fancy_echo "Updating Homebrew formulae ..."
+brew update --force # https://github.com/Homebrew/brew/issues/1151
+brew bundle --file=- <<EOF
+tap "thoughtbot/formulae"
+tap "homebrew/services"
+tap "heroku/brew"
+
+# Unix
+brew "git"
+brew "openssl"
+brew "rcm"
+brew "the_silver_searcher"
+brew "tmux"
+brew "vim"
+brew "watchman"
+brew "zsh"
+
+# Heroku
+brew "heroku/brew/heroku"
+brew "parity"
+
+# GitHub
+brew "hub"
+
+# Image manipulation
+brew "imagemagick"
+
+# Programming language prerequisites and package managers
+brew "libyaml" # should come after openssl
+brew "coreutils"
+brew "yarn"
+cask "gpg-suite"
+
+# Databases
+brew "postgres", restart_service: :changed
+brew "redis", restart_service: :changed
+EOF
+
+fancy_echo "Update heroku binary ..."
+brew unlink heroku
+brew link --force heroku
